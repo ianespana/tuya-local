@@ -1,6 +1,7 @@
 name: EV charger
 products:
   - id: 281a0aqirkjcbq74
+    manufacturer: Afyeev
 entities:
   - entity: sensor
     class: energy
