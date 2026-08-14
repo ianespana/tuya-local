@@ -2,7 +2,7 @@ name: EV charger
 products:
   - id: 281a0aqirkjcbq74
     manufacturer: Afyeev
-    model: Portable EV charger
+    model: 32A Portable EV Charger
 entities:
   - entity: sensor
     class: energy
