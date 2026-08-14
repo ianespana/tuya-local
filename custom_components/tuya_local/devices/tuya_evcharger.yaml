@@ -71,6 +71,46 @@ entities:
         mask: "FFFF000000000000"
         mapping:
           - scale: 10
+  - entity: sensor
+    class: current
+    category: diagnostic
+    dps:
+      - id: 6
+        type: base64
+        optional: true
+        name: sensor
+        unit: A
+        class: measurement
+        mask: "0000FFFFFF000000"
+        mapping:
+          - scale: 1000
+  - entity: sensor
+    name: Phase A power
+    class: power
+    category: diagnostic
+    dps:
+      - id: 6
+        type: base64
+        optional: true
+        name: sensor
+        unit: kW
+        class: measurement
+        mask: "0000000000FFFFFF"
+        mapping:
+          - scale: 1000
+  - entity: sensor
+    name: Total power
+    class: power
+    category: diagnostic
+    dps:
+      - id: 9
+        type: integer
+        optional: true
+        name: sensor
+        unit: kW
+        class: measurement
+        mapping:
+          - scale: 1000
   - entity: binary_sensor
     class: problem
     category: diagnostic
@@ -95,10 +135,20 @@ entities:
         type: string
         name: sensor
         mapping:
+          - dps_val: controlpi_12v
+            value: Standby
+          - dps_val: controlpi_12v_pwm
+            value: Communication initialising
+          - dps_val: controlpi_9v
+            value: Vehicle detected
           - dps_val: controlpi_9v_pwm
-            value: plugged_in
+            value: Vehicle connected
+          - dps_val: controlpi_6v
+            value: Ready to charge
           - dps_val: controlpi_6v_pwm
-            value: charging
+            value: Charging
+          - dps_val: controlpi_error
+            value: Error
   - entity: select
     translation_key: charging_mode
     category: config
@@ -143,6 +193,32 @@ entities:
         class: measurement
         mapping:
           - scale: 100
+  - entity: button
+    name: Refresh
+    icon: "mdi:sync"
+    category: config
+    dps:
+      - id: 27
+        type: string
+        optional: true
+        name: button
+        mapping:
+          - dps_val: online
+            value: true
+  - entity: binary_sensor
+    class: connectivity
+    category: diagnostic
+    deprecated: button_refresh  # 2026-06-29
+    dps:
+      - id: 27
+        type: string
+        optional: true
+        name: sensor
+        mapping:
+          - dps_val: offline
+            value: false
+          - dps_val: online
+            value: true
   - entity: number
     translation_key: timer
     class: duration
