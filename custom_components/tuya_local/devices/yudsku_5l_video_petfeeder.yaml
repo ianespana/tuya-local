@@ -1,0 +1,175 @@
+name: Video pet feeder
+products:
+  - id: udvq1dnky80tw5py
+    manufacturer: YUDSKU
+    model: 5L Camera Pet Feeder
+entities:
+  - entity: text
+    translation_key: meal_plan
+    category: config
+    hidden: true
+    dps:
+      # Up to ten 5-byte entries, encoded as base64:
+      # weekday mask (Monday -> Sunday), hour, minute, portions, enabled.
+      - id: 1
+        type: base64
+        name: value
+        optional: true
+  - entity: button
+    name: Quick feed
+    icon: "mdi:food-drumstick"
+    dps:
+      # Device starts a feed when this boolean is set true.
+      - id: 2
+        type: boolean
+        name: button
+        optional: true
+  - entity: number
+    translation_key: manual_feed
+    icon: "mdi:food-drumstick"
+    dps:
+      - id: 3
+        type: integer
+        name: value
+        unit: portions
+        range:
+          min: 1
+          max: 10
+        optional: true
+  - entity: sensor
+    translation_key: status
+    class: enum
+    icon: "mdi:paw"
+    category: diagnostic
+    dps:
+      - id: 4
+        type: string
+        name: sensor
+        mapping:
+          - dps_val: standby
+            value: standby
+          - dps_val: feeding
+            value: feeding
+          - dps_val: done
+            value: done
+  - entity: sensor
+    icon: "mdi:paw"
+    name: Feed report
+    category: diagnostic
+    dps:
+      - id: 5
+        type: integer
+        name: sensor
+        unit: portions
+        optional: true
+  - entity: sensor
+    class: battery
+    dps:
+      - id: 10
+        type: integer
+        name: sensor
+        unit: "%"
+        optional: true
+  - entity: number
+    translation_key: volume
+    category: config
+    dps:
+      - id: 15
+        type: integer
+        name: value
+        unit: "%"
+        range:
+          min: 0
+          max: 100
+        optional: true
+  - entity: number
+    name: Voice playbacks
+    category: config
+    dps:
+      - id: 16
+        type: integer
+        name: value
+        range:
+          min: 0
+          max: 10
+        optional: true
+  - entity: binary_sensor
+    name: Feeder fault
+    class: problem
+    category: diagnostic
+    dps:
+      - id: 19
+        type: bitfield
+        name: sensor
+        mapping:
+          - dps_val: 0
+            value: false
+          - value: true
+      - id: 19
+        type: bitfield
+        name: fault_code
+      - id: 19
+        type: bitfield
+        name: description
+        mapping:
+          - dps_val: 0
+            value: ok
+          - dps_val: 1
+            value: pet_food_jam
+          - dps_val: 2
+            value: pet_food_shortages
+          - dps_val: 4
+            value: pet_food_run_out
+          - dps_val: 8
+            value: desiccant_exhausted
+          - dps_val: 16
+            value: battery_low
+          - dps_val: 32
+            value: device_stuck
+        optional: true
+  - entity: number
+    name: Feed amount
+    category: config
+    dps:
+      # Tuya declares a raw range of 0..10 with scale 1.
+      - id: 26
+        type: integer
+        name: value
+        optional: true
+        range:
+          min: 0
+          max: 10
+        mapping:
+          - scale: 10
+  - entity: button
+    translation_key: factory_reset
+    category: config
+    hidden: true
+    dps:
+      - id: 20
+        type: boolean
+        name: button
+        optional: true
+  - entity: switch
+    translation_key: power
+    category: config
+    dps:
+      - id: 23
+        type: boolean
+        name: switch
+        optional: true
+  - entity: select
+    translation_key: night_vision
+    category: config
+    dps:
+      - id: 108
+        type: string
+        name: option
+        optional: true
+        mapping:
+          - dps_val: "0"
+            value: auto
+          - dps_val: "1"
+            value: "off"
+          - dps_val: "2"
+            value: "on"
