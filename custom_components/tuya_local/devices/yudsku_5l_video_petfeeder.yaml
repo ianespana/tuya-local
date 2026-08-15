@@ -127,6 +127,20 @@ entities:
           - dps_val: 32
             value: device_stuck
         optional: true
+  - entity: number
+    name: Feed amount
+    category: config
+    dps:
+      # Tuya declares a raw range of 0..10 with scale 1.
+      - id: 26
+        type: integer
+        name: value
+        optional: true
+        range:
+          min: 0
+          max: 10
+        mapping:
+          - scale: 10
   - entity: button
     translation_key: factory_reset
     category: config
